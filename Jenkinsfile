@@ -60,9 +60,12 @@ pipeline {
             set "NO_PROXY=localhost,127.0.0.1,::1,*.amazonaws.com,*.eks.amazonaws.com,169.254.170.2"
     
             REM --- Ensure ECR repo exists (idempotent) ---
-            aws ecr describe-repositories --repository-names %ECR_REPO% --region %AWS_DEFAULT_REGION% >NUL 2>&1 || ^
-            aws ecr create-repository --repository-name %ECR_REPO% --region %AWS_DEFAULT_REGION%
-    
+            REM Ensure ECR repo exists
+            aws ecr describe-repositories --repository-names %ECR_REPO% --region %AWS_DEFAULT_REGION% >NUL 2>&1
+            IF ERRORLEVEL 1 (
+              aws ecr create-repository --repository-name %ECR_REPO% --region %AWS_DEFAULT_REGION%
+            )
+                
             REM --- ECR login, tag, push ---
             for /f "usebackq delims=" %%p in (`aws ecr get-login-password --region %AWS_DEFAULT_REGION%`) do docker login --username AWS --password %%p %ECR_REG%
             docker tag %IMAGE_NAME%:%IMAGE_TAG% %ECR_REG%/%ECR_REPO%:%IMAGE_TAG%
@@ -96,6 +99,7 @@ pipeline {
     }
   }
 }
+
 
 
 

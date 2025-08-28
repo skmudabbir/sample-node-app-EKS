@@ -9,7 +9,6 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm
                 git 'https://github.com/skmudabbir/sample-node-app.git'
             }
         }
@@ -38,4 +37,5 @@ pipeline {
         }
     }
 }
+
 

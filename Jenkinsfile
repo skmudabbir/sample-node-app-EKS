@@ -4,8 +4,8 @@ pipeline {
   environment {
     IMAGE_NAME = 'sample-node-app'
     IMAGE_TAG  = 'v1.0'
-    // If Jenkins runs as a different Windows account, set KUBECONFIG to a file that account can read:
-    // KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.kube\\config'  // <- put a copy here, optional
+    KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.kube\\config'
+
   }
 
   stages {
@@ -57,3 +57,4 @@ pipeline {
     }
   }
 }
+

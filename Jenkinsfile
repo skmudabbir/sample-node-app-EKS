@@ -32,6 +32,7 @@ pipeline {
 
           kubectl apply -f k8s-deployment.yaml
           kubectl apply -f k8s-service.yaml
+          kubectl scale deployment node-app-deployment --replicas=3
 
         '''
       }
@@ -44,5 +45,6 @@ pipeline {
     }
   }
 }
+
 
 

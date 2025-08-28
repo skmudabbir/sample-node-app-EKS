@@ -41,9 +41,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'aws-access',
                                           usernameVariable: 'AWS_ACCESS_KEY_ID',
-                                          passwordVariable: 'AWS_SECRET_ACCESS_KEY',
-                                         bat 'aws sts get-caller-identity'
-                                         )]) {
+                                          passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
           bat """
             REM --- Config ---
             set AWS_DEFAULT_REGION=us-east-1
@@ -98,6 +96,7 @@ pipeline {
     }
   }
 }
+
 
 
 

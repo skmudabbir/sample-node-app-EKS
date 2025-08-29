@@ -54,13 +54,12 @@ pipeline {
             set ECR_REG=%ACCOUNT_ID%.dkr.ecr.%AWS_DEFAULT_REGION%.amazonaws.com
             set EKS_KUBECONFIG=C:\\ProgramData\\Jenkins\\.kube\\eks-config
     
-            REM --- Keep proxies out of the way ---
+            REM --- Check Proxy issue ---
             set "HTTP_PROXY="
             set "HTTPS_PROXY="
             set "NO_PROXY=localhost,127.0.0.1,::1,*.amazonaws.com,*.eks.amazonaws.com,169.254.170.2"
     
-            REM --- Ensure ECR repo exists (idempotent) ---
-            REM Ensure ECR repo exists
+            REM --- Ensure ECR repo exists  ---
             aws ecr describe-repositories --repository-names %ECR_REPO% --region %AWS_DEFAULT_REGION% >NUL 2>&1
             IF ERRORLEVEL 1 (
               aws ecr create-repository --repository-name %ECR_REPO% --region %AWS_DEFAULT_REGION%
@@ -99,6 +98,7 @@ pipeline {
     }
   }
 }
+
 
 
 

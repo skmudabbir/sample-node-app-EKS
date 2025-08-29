@@ -71,7 +71,7 @@ pipeline {
             docker push %ECR_REG%/%ECR_REPO%:%IMAGE_TAG%
 
             REM -- Create EKS Cluster --
-            eksctl create cluster --name %EKS_CLUSTER% --region %AWS_DEFAULT_REGION% --nodes 2 --node-type t3.medium --nodes-min 1 --nodes-max 3 --managed
+            aws eks create cluster --name %EKS_CLUSTER% --region %AWS_DEFAULT_REGION% --nodes 2 --node-type t3.medium --nodes-min 1 --nodes-max 3 --managed
     
             REM --- Point kubectl at EKS (writes kubeconfig file for the Jenkins service) ---
             aws eks update-kubeconfig --name %EKS_CLUSTER% --region %AWS_DEFAULT_REGION% --kubeconfig "%EKS_KUBECONFIG%"
@@ -101,6 +101,7 @@ pipeline {
     }
   }
 }
+
 
 
 

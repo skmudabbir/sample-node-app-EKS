@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = 'sample-node-app'
+    IMAGE_NAME = 'sample-node-app-eks'
     IMAGE_TAG  = 'v1.0'
     KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.kube\\config'
   }
@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Checkout Code') {
       steps {
-        git branch: 'main', url: 'https://github.com/skmudabbir/sample-node-app.git'
+        git branch: 'main', url: 'https://github.com/skmudabbir/sample-node-app-EKS.git'
       }
     }
 
@@ -46,9 +46,9 @@ pipeline {
             REM --- Config ---
             set AWS_DEFAULT_REGION=us-east-1
             set ACCOUNT_ID=291234479378
-            set ECR_REPO=sample-node-app
-            set APP_NAME=sample-node-app
-            set CONTAINER_NAME=sample-node-app
+            set ECR_REPO=sample-node-app-eks
+            set APP_NAME=sample-node-app-eks
+            set CONTAINER_NAME=sample-node-app-eks
             set IMAGE_TAG=v1.0
             set EKS_CLUSTER=sample-eks
             set ECR_REG=%ACCOUNT_ID%.dkr.ecr.%AWS_DEFAULT_REGION%.amazonaws.com
@@ -98,6 +98,7 @@ pipeline {
     }
   }
 }
+
 
 
 
